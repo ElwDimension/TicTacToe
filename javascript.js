@@ -12,7 +12,7 @@ function Game(){
     const getBoard = () => board;
 
     const drawSymbol = (row,column,player) => {
-        //let location=board[row][column];
+
         if(board[row][column].getValue()===''){
             board[row][column].chooseSquare(player);
         }
@@ -23,7 +23,15 @@ function Game(){
         console.log(boardWithCellValues);
     }
 
-    return{getBoard,drawSymbol,printBoard}
+    const clearBoard = () => {
+        for(let i=0;i<3;i++){
+            for(let j=0;j<3;j++){
+                board[i][j].chooseSquare('');
+            }
+        }
+    }
+
+    return{getBoard,drawSymbol,printBoard, clearBoard}
 }
 
 
@@ -85,6 +93,9 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
            currentBoard[0][0].getValue()===currentBoard[1][1].getValue() && currentBoard[0][0].getValue()===currentBoard[2][2].getValue() && currentBoard[0][0].getValue() != ''||
            currentBoard[2][0].getValue()===currentBoard[1][1].getValue() && currentBoard[2][0].getValue()===currentBoard[0][2].getValue() && currentBoard[2][0].getValue() != ''){
                 console.log(`${getActivePlayer().name} wins!`);
+                console.log(`Starting new round...`)
+                board.clearBoard();
+                activePlayer=players[1];
            }
 
     
