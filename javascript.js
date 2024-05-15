@@ -78,14 +78,14 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
 
         board.drawSymbol(row, column, getActivePlayer().token);
         
-        /*const currentBoard = board.getBoard();
-        if(currentBoard[0][0].getValue()===currentBoard[0][1].getValue()===currentBoard[0][2].getValue()||
-           currentBoard[1][0].getValue()===currentBoard[1][1].getValue()===currentBoard[1][2].getValue()||
-           currentBoard[2][0].getValue()===currentBoard[2][1].getValue()===currentBoard[2][2].getValue()||
-           currentBoard[0][0].getValue()===currentBoard[1][1].getValue()===currentBoard[2][2].getValue()||
-           currentBoard[2][0].getValue()===currentBoard[1][1].getValue()===currentBoard[0][2].getValue()){
+        const currentBoard = board.getBoard();
+        if(currentBoard[0][0].getValue()===currentBoard[0][1].getValue() && currentBoard[0][0].getValue()===currentBoard[0][2].getValue() && currentBoard[0][0].getValue() != ''||
+           currentBoard[1][0].getValue()===currentBoard[1][1].getValue() && currentBoard[1][0].getValue()===currentBoard[1][2].getValue() && currentBoard[1][0].getValue() != ''|| 
+           currentBoard[2][0].getValue()===currentBoard[2][1].getValue() && currentBoard[2][0].getValue()===currentBoard[2][2].getValue() && currentBoard[2][0].getValue() != ''||
+           currentBoard[0][0].getValue()===currentBoard[1][1].getValue() && currentBoard[0][0].getValue()===currentBoard[2][2].getValue() && currentBoard[0][0].getValue() != ''||
+           currentBoard[2][0].getValue()===currentBoard[1][1].getValue() && currentBoard[2][0].getValue()===currentBoard[0][2].getValue() && currentBoard[2][0].getValue() != ''){
                 console.log(`${getActivePlayer().name} wins!`);
-           }*/
+           }
 
     
         switchPlayerTurn();
