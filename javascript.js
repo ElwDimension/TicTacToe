@@ -80,6 +80,7 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
     }
 
     const playRound = (row,column) => {
+        
     
         console.log(
             `Drawing ${getActivePlayer().name}'s symbol at [${row},${column}]...`
@@ -87,7 +88,7 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
 
         board.drawSymbol(row, column, getActivePlayer().token);
 
-        
+        const resultDiv=document.querySelector('.result');
         const currentBoard = board.getBoard();
         //const availableCells = currentBoard.filter((row) => row[column].getValue() === '').map(row => row[column]);
         if(currentBoard[0][0].getValue()===currentBoard[0][1].getValue() && currentBoard[0][0].getValue()===currentBoard[0][2].getValue() && currentBoard[0][0].getValue() != ''||
@@ -98,6 +99,7 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
            currentBoard[0][0].getValue()===currentBoard[1][0].getValue() && currentBoard[0][0].getValue()===currentBoard[2][0].getValue() && currentBoard[0][0].getValue() != ''||
            currentBoard[0][1].getValue()===currentBoard[1][1].getValue() && currentBoard[0][1].getValue()===currentBoard[2][1].getValue() && currentBoard[0][1].getValue() != ''||
            currentBoard[0][2].getValue()===currentBoard[1][2].getValue() && currentBoard[0][2].getValue()===currentBoard[2][2].getValue() && currentBoard[0][2].getValue() != ''){
+                resultDiv.textContent=`${getActivePlayer().name} wins!`;
                 console.log(`${getActivePlayer().name} wins!`);
                 console.log(`Starting new round...`)
                 board.clearBoard();
@@ -128,11 +130,13 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
 function ScreenController(){
     const game = gameController();
     const playerTurnDiv=document.querySelector('.turn');
+    const resultDiv=document.querySelector('.result');
     const boardDiv=document.querySelector('.board');
 
     const updateScreen=()=>{
         //clear the board
         boardDiv.textContent="";
+        resultDiv.textContent="";
 
         //get newest version of board/turn
         const board=game.getBoard();
