@@ -112,7 +112,6 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
     const playRound = (row,column) => {
 
         const currentBoard = board.getBoard();
-        const resultDiv=document.querySelector('.result');
 
         if(currentBoard[row][column].getValue()===''){
     
@@ -121,9 +120,10 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
             board.drawSymbol(row, column, getActivePlayer().token);
                 
             if(checkForWin(currentBoard)){
-                resultDiv.textContent=`${getActivePlayer().name} wins!`;
                 console.log(`${getActivePlayer().name} wins!`);
                 console.log(`Starting new round...`)
+                getActivePlayer.score++;
+                console.log(`score is player one: ${players[0].score}, player two:${players[1].score}`)
                 board.clearBoard();
                 activePlayer=players[1];
             }
