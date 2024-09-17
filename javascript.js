@@ -110,34 +110,34 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
     }
 
     const playRound = (row,column) => {
-        
-    
-        console.log(
-            `Drawing ${getActivePlayer().name}'s symbol at [${row},${column}]...`
-        );
 
-        board.drawSymbol(row, column, getActivePlayer().token);
-
-        const resultDiv=document.querySelector('.result');
         const currentBoard = board.getBoard();
-        
-        if(checkForWin(currentBoard)){
-            resultDiv.textContent=`${getActivePlayer().name} wins!`;
-            console.log(`${getActivePlayer().name} wins!`);
-            console.log(`Starting new round...`)
-            board.clearBoard();
-            activePlayer=players[1];
-           }
-        else if(checkForTie(currentBoard)){
-            console.log("It's a tie!")
-            console.log(`Starting new round...`)
-            board.clearBoard();
-            activePlayer=players[1];
-        }
+        const resultDiv=document.querySelector('.result');
+
+        if(currentBoard[row][column].getValue()===''){
+    
+            console.log(`Drawing ${getActivePlayer().name}'s symbol at [${row},${column}]...`);
+
+            board.drawSymbol(row, column, getActivePlayer().token);
+                
+            if(checkForWin(currentBoard)){
+                resultDiv.textContent=`${getActivePlayer().name} wins!`;
+                console.log(`${getActivePlayer().name} wins!`);
+                console.log(`Starting new round...`)
+                board.clearBoard();
+                activePlayer=players[1];
+            }
+            else if(checkForTie(currentBoard)){
+                console.log("It's a tie!")
+                console.log(`Starting new round...`)
+                board.clearBoard();
+                activePlayer=players[1];
+            }
 
     
-        switchPlayerTurn();
-        printNewRound();
+            switchPlayerTurn();
+            printNewRound();
+        }
     }
 
     printNewRound();
