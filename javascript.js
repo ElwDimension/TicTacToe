@@ -58,11 +58,13 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
     const players = [
     {
       name: playerOne,
-      token: 'O'
+      token: 'O',
+      score:0
     },
     {
       name: playerTwo,
-      token: 'X'
+      token: 'X',
+      score:0
     }
     ];
 
@@ -78,6 +80,34 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
         board.printBoard();
         console.log(`${getActivePlayer().name}'s turn.`);
     }
+    
+    const checkForWin = (currentBoard) => {
+        if(currentBoard[0][0].getValue()===currentBoard[0][1].getValue() && currentBoard[0][0].getValue()===currentBoard[0][2].getValue() && currentBoard[0][0].getValue() != ''||
+           currentBoard[1][0].getValue()===currentBoard[1][1].getValue() && currentBoard[1][0].getValue()===currentBoard[1][2].getValue() && currentBoard[1][0].getValue() != ''|| 
+           currentBoard[2][0].getValue()===currentBoard[2][1].getValue() && currentBoard[2][0].getValue()===currentBoard[2][2].getValue() && currentBoard[2][0].getValue() != ''||
+           currentBoard[0][0].getValue()===currentBoard[1][1].getValue() && currentBoard[0][0].getValue()===currentBoard[2][2].getValue() && currentBoard[0][0].getValue() != ''||
+           currentBoard[2][0].getValue()===currentBoard[1][1].getValue() && currentBoard[2][0].getValue()===currentBoard[0][2].getValue() && currentBoard[2][0].getValue() != ''||
+           currentBoard[0][0].getValue()===currentBoard[1][0].getValue() && currentBoard[0][0].getValue()===currentBoard[2][0].getValue() && currentBoard[0][0].getValue() != ''||
+           currentBoard[0][1].getValue()===currentBoard[1][1].getValue() && currentBoard[0][1].getValue()===currentBoard[2][1].getValue() && currentBoard[0][1].getValue() != ''||
+           currentBoard[0][2].getValue()===currentBoard[1][2].getValue() && currentBoard[0][2].getValue()===currentBoard[2][2].getValue() && currentBoard[0][2].getValue() != ''){
+                return true;
+           }
+        else{
+            return false;
+        }
+    }
+
+    const checkForTie = (currentBoard) =>{
+        let check=true;
+        for(let i=0;i<3;i++){
+            for(let j=0;j<3;j++){
+                if(currentBoard[i][j].getValue()===''){
+                    check=false;
+                }
+            }
+        }
+        return check;
+    }
 
     const playRound = (row,column) => {
         
@@ -90,26 +120,19 @@ function gameController(playerOne="Player One", playerTwo="Player Two"){
 
         const resultDiv=document.querySelector('.result');
         const currentBoard = board.getBoard();
-        //const availableCells = currentBoard.filter((row) => row[column].getValue() === '').map(row => row[column]);
-        if(currentBoard[0][0].getValue()===currentBoard[0][1].getValue() && currentBoard[0][0].getValue()===currentBoard[0][2].getValue() && currentBoard[0][0].getValue() != ''||
-           currentBoard[1][0].getValue()===currentBoard[1][1].getValue() && currentBoard[1][0].getValue()===currentBoard[1][2].getValue() && currentBoard[1][0].getValue() != ''|| 
-           currentBoard[2][0].getValue()===currentBoard[2][1].getValue() && currentBoard[2][0].getValue()===currentBoard[2][2].getValue() && currentBoard[2][0].getValue() != ''||
-           currentBoard[0][0].getValue()===currentBoard[1][1].getValue() && currentBoard[0][0].getValue()===currentBoard[2][2].getValue() && currentBoard[0][0].getValue() != ''||
-           currentBoard[2][0].getValue()===currentBoard[1][1].getValue() && currentBoard[2][0].getValue()===currentBoard[0][2].getValue() && currentBoard[2][0].getValue() != ''||
-           currentBoard[0][0].getValue()===currentBoard[1][0].getValue() && currentBoard[0][0].getValue()===currentBoard[2][0].getValue() && currentBoard[0][0].getValue() != ''||
-           currentBoard[0][1].getValue()===currentBoard[1][1].getValue() && currentBoard[0][1].getValue()===currentBoard[2][1].getValue() && currentBoard[0][1].getValue() != ''||
-           currentBoard[0][2].getValue()===currentBoard[1][2].getValue() && currentBoard[0][2].getValue()===currentBoard[2][2].getValue() && currentBoard[0][2].getValue() != ''){
-                resultDiv.textContent=`${getActivePlayer().name} wins!`;
-                console.log(`${getActivePlayer().name} wins!`);
-                console.log(`Starting new round...`)
-                board.clearBoard();
-                activePlayer=players[1];
+        
+        if(checkForWin(currentBoard)){
+            resultDiv.textContent=`${getActivePlayer().name} wins!`;
+            console.log(`${getActivePlayer().name} wins!`);
+            console.log(`Starting new round...`)
+            board.clearBoard();
+            activePlayer=players[1];
            }
-        else if(currentBoard.includes('')){
+        else if(checkForTie(currentBoard)){
             console.log("It's a tie!")
             console.log(`Starting new round...`)
-                board.clearBoard();
-                activePlayer=players[1];
+            board.clearBoard();
+            activePlayer=players[1];
         }
 
     
